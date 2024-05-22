@@ -1,24 +1,14 @@
 import cors from "cors";
 import "dotenv/config";
 import express from "express";
-import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
+import { ObjectId } from "mongodb";
+import { client } from "./src/constants/constants.js";
 
 const app = express();
 const port = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(express.json());
-
-const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@coffee-server.tnjjcr0.mongodb.net/?retryWrites=true&w=majority&appName=coffee-server`;
-
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
 
 async function run() {
   try {
@@ -56,14 +46,14 @@ async function run() {
       const coffee = {
         $set: {
           name: updatedCoffee.name,
-          price: updatedCoffee.price, 
-          supplier: updatedCoffee.supplier, 
-          taste: updatedCoffee.taste, 
-          category: updatedCoffee.category, 
-          details: updatedCoffee.details, 
-          photo: updatedCoffee.photo
-        }
-      }
+          price: updatedCoffee.price,
+          supplier: updatedCoffee.supplier,
+          taste: updatedCoffee.taste,
+          category: updatedCoffee.category,
+          details: updatedCoffee.details,
+          photo: updatedCoffee.photo,
+        },
+      };
       const result = await coffeeCollection.updateOne(filter, coffee, options);
       res.send(result);
     });
