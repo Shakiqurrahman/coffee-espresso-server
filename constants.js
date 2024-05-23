@@ -10,3 +10,6 @@ export const client = new MongoClient(uri, {
     deprecationErrors: true,
   },
 });
+
+export const coffeeCollection = client.db("coffeeDB").collection("coffee");
+
