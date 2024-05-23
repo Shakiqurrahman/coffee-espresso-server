@@ -2,7 +2,7 @@ import cors from "cors";
 import "dotenv/config";
 import express from "express";
 import { ObjectId } from "mongodb";
-import { client } from "./src/constants/constants.js";
+import { client } from "./constants.js";
 
 const app = express();
 const port = process.env.PORT || 8000;
